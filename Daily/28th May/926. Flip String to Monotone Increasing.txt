@@ -1,0 +1,34 @@
+class Solution {
+    HashMap<String,Integer>map=new HashMap<>();
+    public int f(int i,String s,boolean one){
+        if(i==s.length()){
+            return 0;
+        }
+        String x=i+" "+one;
+        // System.out.println(x);
+        if(map.containsKey(x)){
+            return map.get(x);
+        }
+        int t=0;
+        if(s.charAt(i)=='0'){
+            if(!one){
+                t+=Math.min(f(i+1,s,true)+1,f(i+1,s,false));
+            }else{
+                t+=f(i+1,s,true)+1;
+            }
+        }else{
+            if(!one){
+                t+=Math.min(f(i+1,s,true),f(i+1,s,false)+1);
+            }else{
+                t+=f(i+1,s,true);
+            }
+        }
+
+        map.put(x,t);
+        return t;
+    }
+
+    public int minFlipsMonoIncr(String s) {
+        return f(0,s,false);
+    }
+}
