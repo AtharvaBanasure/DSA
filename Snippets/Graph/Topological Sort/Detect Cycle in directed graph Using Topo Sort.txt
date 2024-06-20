@@ -1,0 +1,6 @@
+Detect Cycle in directed graph
+
+
+Inorder to detect the cycle in the directed graph,
+
+we can apply tological sort and if the size of the topo sort array is not equal to the number of vertices then "cycle is PRESENT"  else cycle is not present
