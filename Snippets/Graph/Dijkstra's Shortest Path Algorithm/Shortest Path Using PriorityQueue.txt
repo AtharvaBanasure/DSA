@@ -1,3 +1,6 @@
+//------------<-------IMP------------------>
+//Dijkstra does not work for the negative weights and negative weight cycle because it will fall into an infinite loop
+
 class Solution
 {
     //Function to find the shortest distance of all the vertices
