@@ -1,0 +1,3 @@
+How to get Intuition of Topo sort
+
+When ever there if something into something then Mostly the question will be of topo sort

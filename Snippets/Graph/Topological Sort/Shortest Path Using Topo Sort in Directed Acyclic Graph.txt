@@ -1,0 +1,64 @@
+//User function Template for Java
+class Solution {
+    public void dfs(int node,Stack<Integer>st,int vis[],ArrayList<ArrayList<int[]>> adj){
+        vis[node]=1;
+        ArrayList<int[]>arr=adj.get(node);
+        
+        for(int i=0;i<arr.size();i++){
+            int x[]=arr.get(i);
+            if(vis[x[0]]==0){
+                dfs(x[0],st,vis,adj);
+            }
+        }
+        st.push(node);
+    }
+    
+    
+    public int[] shortestPath(int n, int m, int[][] edges) {
+        ArrayList<ArrayList<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < m; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            adj.get(u).add(new int[]{v, w});
+        }
+
+        int ans[]=new int[n];
+        
+        Stack<Integer>st=new Stack<>();
+        int vis[]=new int[n];
+        for(int i=0;i<n;i++){
+            if(vis[i]==0){
+                dfs(i,st,vis,adj);
+            }
+        }
+        
+        Arrays.fill(ans,Integer.MAX_VALUE);
+        
+        int src=0;
+        ans[src]=0;
+
+        while(!st.isEmpty()){
+            int p=st.peek();
+            st.pop();
+            
+            for(int[] edge:adj.get(p)){
+                int v=edge[0];
+                int w=edge[1];
+                if(ans[p]!=Integer.MAX_VALUE && ans[p]+w<ans[v]){
+                    ans[v]=ans[p]+w;   
+                }
+            }
+        }
+        
+        for(int i=0;i<n;i++){
+            if(ans[i]==Integer.MAX_VALUE)ans[i]=-1;
+        }
+        
+        return ans;
+    }
+}
