@@ -1,0 +1,17 @@
+	int shortetstDistance(Node root,int a){
+	    if(root==null)return -1; //target not found
+	    
+	    if(root.data==a)return 0;
+	    
+	    int left=shortetstDistance(root.left,a);
+	    int right=shortetstDistance(root.right,a);
+	
+	    if(left==-1 && right==-1)return -1;
+	    
+	    if(left==-1){
+	        return right+1;
+	    }else{
+	        return left+1;
+	    }
+	    
+	}
