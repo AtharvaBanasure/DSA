@@ -1,0 +1,56 @@
+class Solution {
+    class Multiset {
+        private TreeMap<Integer, Integer> map;
+
+        public Multiset() {
+            map = new TreeMap<>();
+        }
+
+        public void add(int element) {
+            map.put(element, map.getOrDefault(element, 0) + 1);
+        }
+
+        public void remove(int element) {
+            if (map.containsKey(element)) {
+                if (map.get(element) == 1) {
+                    map.remove(element);
+                } else {
+                    map.put(element, map.get(element) - 1);
+                }
+            }
+        }
+
+        public int findMax() {
+            return map.lastKey();
+        }
+
+        public int findMin() {
+            return map.firstKey();
+        }
+    }
+    public int longestSubarray(int[] nums, int limit) {
+        Multiset set = new Multiset();
+
+        int i = 0;
+        int j = 0;
+        int n = nums.length;
+        int ans = 1;
+
+        while (j < n) {
+            set.add(nums[j]);
+            int max = set.findMax();
+            int min = set.findMin();
+
+            if (max - min <= limit) {
+                ans = Math.max(ans, j - i + 1);
+                j++;
+            } else {
+                set.remove(nums[i]);
+                i++;
+                j++;
+            }
+        }
+
+        return ans;
+    }
+}
