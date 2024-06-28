@@ -8,7 +8,7 @@ class Solution
     static int[] dijkstra(int n, ArrayList<ArrayList<ArrayList<Integer>>> adj, int s)
     {
         // Write your code here
-        
+        //dist fromNode
         PriorityQueue<int[]>pq=new PriorityQueue<>((a,b)->{
             if(a[0]==b[0]){
                 return a[1]-b[1];
