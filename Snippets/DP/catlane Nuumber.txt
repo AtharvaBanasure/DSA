@@ -1,0 +1,28 @@
+
+
+
+class Solution {
+    public static int findCatalan(int n) {
+        // code here
+        if(n<=1)return 1;
+        long dp[]=new long[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        
+        for(int i=2;i<=n;i++){
+            int x=i-1;
+            int y=0;
+            while(x>=0){
+                dp[i]=(dp[i]+((long)((long)dp[x]*(long)dp[y]))%1000000007)%1000000007;
+                x--;
+                y++;
+            }
+        }
+        return (int)dp[n];
+    }
+}
+        
+
+
+//  c2c0+c1c1+c0c2
+//  2 1 +1 1 +1 2  =5
