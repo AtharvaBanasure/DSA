@@ -1,0 +1,38 @@
+
+class Solution
+{
+    //Function to sort the array using bubble sort algorithm.
+	public static void bubbleSort(int arr[], int n)
+    {
+        //code here
+        for(int turn=0;turn<n-1;turn++){
+            int noOfSwap=0;
+            for(int j=0;j<n-1-turn;j++){
+                //swap
+                
+                //Incresing
+                if(arr[j+1]<arr[j]){
+                    int temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                    noOfSwap++;
+                }
+                
+                //decresing
+                // if(arr[j+1]>arr[j]){
+                //     int temp=arr[j];
+                //     arr[j]=arr[j+1];
+                //     arr[j+1]=temp;
+                // }
+            }
+            if(noOfSwap==0)break;  //Since there is no swap done ,so the array is already sorted
+            //This is done to handle the best case when array is already sorted 
+            
+            //like [1,2,3,4,5,6]
+            //if we go with the classic bubble sort then time complexity to sort the array
+            //will be O(n^2)
+            //But since there is no swaps in the first iteration we can break
+            //and the time complexity becomems O(n) since we are iterating over the for single time
+        }
+    }
+}

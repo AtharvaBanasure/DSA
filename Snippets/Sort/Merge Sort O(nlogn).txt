@@ -1,0 +1,46 @@
+class Solution
+{
+    void merge(int arr[], int s, int mid, int e)
+    {
+         // Your code here
+         int i=s;
+         int j=mid+1;
+         int p=0;
+         int temp[]=new int[e-s+1];
+         
+         while(i<=mid && j<=e){
+             if(arr[i]<arr[j]){
+                 temp[p]=arr[i];
+                 p++;
+                 i++;
+             }else{
+                 temp[p]=arr[j];
+                 j++;
+                 p++;
+             }
+         }
+         
+         while(i<=mid){
+             temp[p++]=arr[i++];
+         }
+         while(j<=e){
+             temp[p++]=arr[j++];
+         }
+         
+         //copy the temp array to orginal array
+         for(int k=0;k<temp.length;k++){
+             arr[s++]=temp[k];
+         }
+    }
+    void mergeSort(int arr[], int s, int e)
+    {
+        //code here
+        if(s>=e){
+            return;
+        }
+        int mid=(s+e)/2;
+        mergeSort(arr,s,mid);
+        mergeSort(arr,mid+1,e);
+        merge(arr,s,mid,e);
+    }
+}
