@@ -1,0 +1,88 @@
+class Solution {
+    public List<Integer> shortestPath(int n, int m, int edges[][]) {
+        //  Code Here.
+        //In the answer list the first index is the minimum distance needed from src to dest and rest other is the path traveled
+        List<Integer>ans=new ArrayList<>();
+        
+        ArrayList<ArrayList<ArrayList<Integer>>>adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        
+        for(int i=0;i<edges.length;i++){
+            int u=edges[i][0]-1;
+            int v=edges[i][1]-1;
+            int w=edges[i][2];
+            ArrayList<Integer>a=new ArrayList<>();
+            a.add(v);
+            a.add(w);
+            
+            ArrayList<Integer>b=new ArrayList<>();
+            b.add(u);
+            b.add(w);
+            
+            adj.get(u).add(a);
+            adj.get(v).add(b);
+        }
+        
+        PriorityQueue<int[]>pq=new PriorityQueue<>((a,b)->{
+            return a[0]-b[0];
+        });
+        
+        int dist[]=new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        
+        dist[0]=0;
+        pq.add(new int[]{0,0});
+        
+        HashMap<Integer,List<Integer>>path=new HashMap<>();
+        for(int i=0;i<n;i++){
+            path.put(i,new ArrayList<>());
+        }
+        
+        List<Integer>aa=new ArrayList<>();
+        aa.add(0);
+        path.put(0,aa);
+        
+        int prev[]=new int[n];
+        Arrays.fill(prev,-1);
+        
+        while(!pq.isEmpty()){
+            int p[]=pq.remove();
+            
+            int u=p[1];
+            int w=p[0];
+            
+            ArrayList<ArrayList<Integer>>arr=adj.get(u);
+            for(ArrayList<Integer>a:arr){
+                int v=a.get(0);
+                int d=a.get(1);
+                
+                if(w+d<dist[v]){
+                    dist[v]=w+d;
+                    
+                    prev[v]=u;
+                    List<Integer>x=path.get(u);
+                    x.add(v);
+                    path.put(v,x);
+                    pq.add(new int[]{dist[v],v});
+                }
+            }
+        }
+        
+        if(dist[n-1]==Integer.MAX_VALUE){
+            ans.add(-1);
+            return ans;
+        }else{
+            ans.add(dist[n-1]);
+            List<Integer>pp=new ArrayList<>();
+            for(int i=n-1;i!=-1;i=prev[i]){
+                pp.add(i+1);
+            }
+            for(int i=pp.size()-1;i>=0;i--){
+                ans.add(pp.get(i));
+            }
+            return ans;
+        }
+    }
+}

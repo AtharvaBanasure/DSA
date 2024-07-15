@@ -1,0 +1,8 @@
+Banker’s Algorithm in Operating System
+Last Updated : 02 Jul, 2024
+The Banker’s Algorithm is a resource allocation and deadlock avoidance algorithm that tests for safety by simulating the allocation for the predetermined maximum possible amounts of all resources, then makes an “s-state” check to test for possible activities, before deciding whether allocation should be allowed to continue.
+
+The Banker’s Algorithm is a smart way for computer systems to manage how programs use resources, like memory or CPU time. It helps prevent situations where programs get stuck and can’t finish their tasks, which is called deadlock. By keeping track of what resources each program needs and what’s available, the algorithm makes sure that programs only get what they need in a safe order. This helps computers run smoothly and efficiently, especially when lots of programs are running at the same time.
+
+Why Banker’s Algorithm is Named So? 
+The banker’s algorithm is named so because it is used in the banking system to check whether a loan can be sanctioned to a person or not. Suppose there are n number of account holders in a bank and the total sum of their money is S. Let us assume that the bank has certain amount of money Y . If a person applies for a loan then the bank first subtracts the loan amount from the total money that the bank has (Y) and if the remaining amount is greater than S then only the loan is sanctioned. It is done because if all the account holders come to withdraw their money then the bank can easily do it.
