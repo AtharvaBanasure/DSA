@@ -1,0 +1,41 @@
+In Java, the Arrays.sort method that accepts a custom Comparator works with arrays of objects (such as Integer) and not with primitive types (such as int). This is because the Comparator interface is designed to compare objects, and primitive types are not objects in Java.
+
+Key Points:
+Primitive Types vs. Wrapper Classes:
+
+int is a primitive type.
+Integer is a wrapper class for the primitive type int. Wrapper classes in Java are used to treat primitive data types as objects.
+Sorting with Comparator:
+
+The Comparator interface is used to define a custom ordering for objects.
+When you use Arrays.sort with a Comparator, it expects an array of objects, not primitives. This is why Integer works but int does not.
+
+//Absolute sort
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		int arr[]={2, -7, -2, -2, 0};
+		
+		Integer a[]=new Integer[arr.length];
+		for(int i=0;i<arr.length;i++){
+		    a[i]=arr[i];
+		}
+		Arrays.sort(a,(x,y)->{
+		    if(Math.abs(x)==Math.abs(y)){
+		        return x-y;
+		    }else{
+		        return Math.abs(x)-Math.abs(y);
+		    }
+		});
+		System.out.println(Arrays.toString(a));
+	}
+}
+
+Here Integer is an Object so we can apply sort using comparator
+while
+
+int is a primitive type.(Data type)
+
+Integer is a wrapper class for the primitive type int. Wrapper classes in Java are used to treat primitive data types as objects.

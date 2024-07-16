@@ -2,6 +2,12 @@ class Solution {
     public List<Integer> shortestPath(int n, int m, int edges[][]) {
         //  Code Here.
         //In the answer list the first index is the minimum distance needed from src to dest and rest other is the path traveled
+
+	//See the graph is created correctly or not
+	//here the node starts from 1 and not from 0, so I had put -1 
+	//while creating the graph to maintain the standard
+	//Change it accordingly
+ 
         List<Integer>ans=new ArrayList<>();
         
         ArrayList<ArrayList<ArrayList<Integer>>>adj=new ArrayList<>();

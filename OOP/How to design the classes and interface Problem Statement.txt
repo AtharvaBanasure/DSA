@@ -1,0 +1,52 @@
+How to design the classes and interfaces for the following scenario:
+
+Tom and Bob work for a school.
+Tom works as a manager and as a teacher.
+Bob works as a teacher.
+A teacher's behavior is to teach the students and
+a manager's behavior is to manage school employees.
+
+Please refactor below code as per good design principles.
+
+public interface Person {}
+/
+public interface Manager extends Person {
+public void manageEmployees();
+}
+
+public interface Teacher extends Person {
+public void teachStudents();
+}
+
+public class Tom implements Manager, Teacher {
+
+@Override
+public void manageEmployees() {
+//implementation goes here
+}
+
+@Override
+public void teachStudents() {
+//implementation goes here
+}
+}
+
+public class Bob implements Teacher {
+
+@Override
+public void teachStudents() {
+//implementation goes here
+}
+}
+
+public class School {
+
+public static void main(String[] args) {
+Tom tom = new Tom();
+tom.manageEmployees();
+tom.teachStudents();
+
+Bob bob = new Bob();
+bob.teachStudents();
+}
+}
