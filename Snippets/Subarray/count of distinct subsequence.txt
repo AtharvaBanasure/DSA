@@ -1,0 +1,29 @@
+class Solution {
+    public static int f(String s){
+        int n=s.length();
+        int mod=1000000007;
+        long dp[]=new long[n+1];
+        dp[0]=(long)1;
+        HashMap<Character,Integer>map=new HashMap<>();
+        
+        for(int i=1;i<=n;i++){
+            char c=s.charAt(i-1);
+            dp[i]=((long)dp[i-1]*(long)2)%mod;
+            if(map.containsKey(c)){
+                dp[i]-=dp[map.get(c)];
+            }
+            map.put(c,i-1);
+        }
+        
+        return (int)dp[n]%mod;
+    }
+    public static String betterString(String str1, String str2) {
+        // Code here
+        int n=f(str1);
+        int m=f(str2);
+        // System.out.println(n+" "+m);
+        if(n>=m)return str1;
+        return str2;
+    }
+    // 1 2 4 8
+}

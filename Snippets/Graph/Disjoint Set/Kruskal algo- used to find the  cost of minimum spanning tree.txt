@@ -1,0 +1,84 @@
+
+class Solution {
+    static class DisjointSet{
+        List<Integer>size=new ArrayList<>();
+        List<Integer>parent=new ArrayList<>();
+        
+        public DisjointSet(int n){
+            for(int i=0;i<=n;i++){
+                size.add(1);
+                parent.add(i);
+            }
+        }
+        
+        public int findUPar(int node){
+            if(node==parent.get(node)){
+                return node;
+            }
+            int ulp=findUPar(parent.get(node));
+            parent.set(node,ulp);
+            return parent.get(node);
+        }
+        
+        public void unionBySize(int u,int v){
+            int ulp_u=findUPar(u);
+            int ulp_v=findUPar(v);
+            if(ulp_u==ulp_v)return;
+            
+            if(size.get(ulp_u)<size.get(ulp_v)){
+                parent.set(ulp_u,ulp_v);
+                size.set(ulp_v,size.get(ulp_v)+size.get(ulp_u));
+            }
+            else{
+                parent.set(ulp_v,ulp_u);
+                size.set(ulp_u,size.get(ulp_u)+size.get(ulp_v));
+            }
+        }
+    }
+
+    static int spanningTree(int V, int E, List<List<int[]>> adj) {
+        // Code Here.
+        int edges[][]=new int[2*E][3];
+        
+        // for(int i=0;i<adj.size();i++){
+        //     List<int[]>x=adj.get(i);
+        //     for(int j=0;j<x.size();j++){
+        //         System.out.println(Arrays.toString(x.get(j)));
+        //     }
+        // }
+        
+        //w u v
+        //the adj will contains u->v as well as v->u
+        
+        
+        int p=0;
+        for(int i=0;i<adj.size();i++){
+            List<int[]>a=new ArrayList<>(adj.get(i));
+            for(int j=0;j<a.size();j++){
+                edges[p][0]=i;
+                edges[p][1]=a.get(j)[0];
+                edges[p][2]=a.get(j)[1];   
+                p++;
+            }
+        }
+        
+        Arrays.sort(edges,(a,b)->{
+            return a[2]-b[2];
+        });
+        
+        
+        DisjointSet ds=new DisjointSet(V);
+        int ans=0;
+        for(int i=0;i<2*E;i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            int w=edges[i][2];
+            
+            if(ds.findUPar(u)!=ds.findUPar(v)){
+                ans+=w;
+                ds.unionBySize(u,v);
+            }
+        }
+        return ans;
+    }
+}
