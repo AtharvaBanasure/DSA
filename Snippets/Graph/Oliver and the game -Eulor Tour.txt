@@ -1,0 +1,82 @@
+https://www.hackerearth.com/practice/algorithms/graphs/topological-sort/practice-problems/algorithm/oliver-and-the-game-3/?purpose=login&source=problem-page&update=google
+
+
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+class TestClass {
+    static long timer=1;
+    static long in[];
+    static long out[];
+
+    static void dfs(int src,int par,ArrayList<ArrayList<Integer>>adj){
+        in[src]=timer++;
+
+        for(int a:adj.get(src)){
+            if(a!=par){
+                dfs(a,src,adj);
+            }
+        }
+
+        out[src]=timer++;
+    }
+
+    static boolean check(int x,int y){
+        if(in[x]>in[y] && out[x]<out[y])return true;
+        return false;
+    }
+
+    public static void main(String args[] ) throws Exception {
+        //BufferedReader
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // String name = br.readLine();                // Reading input from STDIN
+        // System.out.println("Hi, " + name + ".");    // Writing output to STDOUT
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        ArrayList<ArrayList<Integer>>adj=new ArrayList<>();
+        for(int i=0;i<n+1;i++){
+            adj.add(new ArrayList<>());
+        }
+        in=new long[n+1];
+        out=new long[n+1];
+        int p=n-1;
+        while(p-->0){
+            int a=sc.nextInt();
+            int b=sc.nextInt();
+
+            adj.get(a).add(b);
+            adj.get(b).add(a);
+        }
+        
+        dfs(1,0,adj);
+
+
+        int m=sc.nextInt();
+        while(m-->0){
+            int type=sc.nextInt();
+            int x=sc.nextInt();
+            int y=sc.nextInt();
+
+            if(!check(x,y) && !check(y,x)){
+                System.out.println("NO");
+                continue;
+            }
+
+            if(type==0){
+                if(check(y,x)){
+                    System.out.println("YES");
+                }else{
+                    System.out.println("NO");
+                }
+            }else{
+                if(check(x,y)){
+                    System.out.println("YES");
+                }else{
+                    System.out.println("NO");
+                }
+            }
+        }
+
+    }
+}

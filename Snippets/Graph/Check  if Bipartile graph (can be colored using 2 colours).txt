@@ -1,0 +1,36 @@
+class Solution
+{
+    public boolean check(int start,int n,ArrayList<ArrayList<Integer>>adj,int col[]){
+        Queue<Integer>q=new LinkedList<>();
+        q.add(start);
+        col[start]=0;
+        while(!q.isEmpty()){
+            int x=q.remove();
+        
+            ArrayList<Integer>arr=adj.get(x);
+            
+            for(int a:arr){
+                if(col[a]==-1){
+                    col[a]=(col[x]==0)?1:0;
+                    q.add(a);
+                }else if(col[a]==col[x]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isBipartite(int n, ArrayList<ArrayList<Integer>>adj)
+    {
+        // Code here
+        int col[]=new int[n];
+        Arrays.fill(col,-1);
+        
+        for(int  i=0;i<n;i++){
+            if(col[i]==-1){
+                if(!check(i,n,adj,col))return false;
+            }
+        }
+        return true;
+    }
+}

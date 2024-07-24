@@ -1,0 +1,49 @@
+
+class Solution
+{
+    public void shortest_distance(int[][] mat)
+    {
+        //mat is Adj matrix
+        // Code here 
+        
+        
+        //first convert to standard form if -1 then put maxvalue and 
+        //if(i==j)  then 0
+        int n=mat.length;
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==-1){
+                    mat[i][j]=10000000;
+                }
+                if(i==j)mat[i][j]=0;
+            }
+        }
+    
+        
+        for(int k=0;k<n;k++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    mat[i][j]=Math.min(mat[i][j],mat[i][k]+mat[k][j]);
+                }
+            }
+        }
+        
+        //change back to original form
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==10000000){
+                    mat[i][j]=-1;
+                }
+            }
+        }
+        
+        
+        //Detect negative cycle
+        // for(int i=0;i<n;i++){
+        //     if(mat[i][i]<0){
+        //         // return negative cycle
+        //     }
+        // }
+    }
+}

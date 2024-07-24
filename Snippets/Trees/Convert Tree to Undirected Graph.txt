@@ -1,0 +1,98 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    HashMap<Integer,ArrayList<Integer>>map=new HashMap<>();
+    public void treeToGraph(TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(root.left!=null){
+            int val=root.val;
+            if(map.containsKey(val)){
+                ArrayList<Integer>a=map.get(val);
+                a.add(root.left.val);
+                map.put(val,a);
+            }else{
+                ArrayList<Integer>a=new ArrayList<>();
+                a.add(root.left.val);
+                map.put(val,a);
+            }
+            val=root.left.val;
+            if(map.containsKey(val)){
+                ArrayList<Integer>a=map.get(val);
+                a.add(root.val);
+                map.put(val,a);
+            }else{
+                ArrayList<Integer>a=new ArrayList<>();
+                a.add(root.val);
+                map.put(val,a);
+            }
+        }
+        if(root.right!=null){
+            int val=root.val;
+            if(map.containsKey(val)){
+                ArrayList<Integer>a=map.get(val);
+                a.add(root.right.val);
+                map.put(val,a);
+            }else{
+                ArrayList<Integer>a=new ArrayList<>();
+                a.add(root.right.val);
+                map.put(val,a);
+            }
+            val=root.right.val;
+            if(map.containsKey(val)){
+                ArrayList<Integer>a=map.get(val);
+                a.add(root.val);
+                map.put(val,a);
+            }else{
+                ArrayList<Integer>a=new ArrayList<>();
+                a.add(root.val);
+                map.put(val,a);
+            }
+        }
+        treeToGraph(root.left);
+        treeToGraph(root.right);
+    }
+    public int amountOfTime(TreeNode root, int start) {
+        treeToGraph(root);
+
+        // for(int i:map.keySet()){
+        //     System.out.println(i+" "+map.get(i));
+        // }
+
+        HashSet<Integer>vis=new HashSet<>();
+        Queue<Integer>q=new LinkedList<>();
+        int sec=0;
+        q.add(start);
+
+        while(!q.isEmpty()){
+            int n=q.size();
+            while(n-->0){
+                int x=q.remove();
+                vis.add(x);
+                ArrayList<Integer>a=map.get(x);
+                if(a!=null)
+                for(int i=0;i<a.size();i++){
+                    if(!vis.contains(a.get(i))){
+                        q.add(a.get(i));
+                    }
+                }
+            }
+            sec++;
+        }
+        return sec-1;
+    }
+}

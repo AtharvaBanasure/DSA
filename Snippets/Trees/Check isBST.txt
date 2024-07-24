@@ -1,0 +1,18 @@
+class Solution {
+    // Function to check whether a Binary Tree is BST or not.
+    boolean f(Node root,int l,int r){
+        if(root==null)return true;
+        
+        if(root.data>l && root.data<r){
+            return f(root.left,l,root.data) && f(root.right,root.data,r);
+        }
+        return false;
+    }
+    boolean isBST(Node root) {
+        // code here.
+        if(root==null){
+            return true;
+        }
+        return f(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+    }
+}
