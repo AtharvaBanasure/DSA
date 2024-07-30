@@ -1,0 +1,87 @@
+
+class Solution
+{
+    //sort all the edges according to the finishing time
+    //Reverse the connected graph
+    //Do a dfs Traversal on order of finishing time
+    
+    
+    //Function to find number of strongly connected components in the graph.
+    
+    public void dfs(int i,ArrayList<ArrayList<Integer>>adj,HashSet<Integer>vis,Stack<Integer>st){
+        vis.add(i);
+        for(int j:adj.get(i)){
+            if(!vis.contains(j)){
+                dfs(j,adj,vis,st);
+            }
+        }
+        
+        st.add(i); 
+    }
+    
+    
+    public void dfs3(int i,ArrayList<ArrayList<Integer>>adj,HashSet<Integer>vis,ArrayList<ArrayList<Integer>>ans,ArrayList<Integer>curr){
+        vis.add(i);
+        curr.add(i);
+        for(int j:adj.get(i)){
+            if(!vis.contains(j)){
+                dfs3(j,adj,vis,ans,curr);
+            }
+        }
+        ans.add(new ArrayList<>(curr));
+    }
+    
+    public int kosaraju(int n, ArrayList<ArrayList<Integer>> adj)
+    {
+        //code here
+        
+        //sort according to finish time
+        Stack<Integer>st=new Stack<>();
+        
+        HashSet<Integer>vis=new HashSet<>();
+        
+        
+        //O(V+E)
+        for(int i=0;i<n;i++){
+            if(!vis.contains(i)){
+                dfs(i,adj,vis,st);
+            }
+        }
+        
+        
+        //reverse the graph
+        ArrayList<ArrayList<Integer>>rev=new ArrayList<>();
+        //O(V+E)
+        for(int i=0;i<n;i++){
+            rev.add(new ArrayList<>());
+        }
+        
+        for(int i=0;i<n;i++){
+            for(int j:adj.get(i)){
+                rev.get(j).add(i);
+            }
+        }
+        
+        //Do dfs traversal on order of finishing time
+        vis=new HashSet<>();
+        int scc=0;
+        //O(V+E)
+        ArrayList<ArrayList<Integer>>ans=new ArrayList<>();
+        while(!st.isEmpty()){
+            int x=st.pop();
+            ArrayList<Integer>curr=new ArrayList<>();
+            if(!vis.contains(x)){
+                dfs3(x,rev,vis,ans,curr);
+                scc++;
+            }
+        }
+
+        // Print the SSC
+        
+        // for(int i=0;i<ans.size();i++){
+        //     System.out.println(ans.get(i));
+        // }
+        
+        return scc;
+    }
+}
