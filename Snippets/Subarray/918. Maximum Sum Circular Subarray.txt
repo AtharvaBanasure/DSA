@@ -1,0 +1,45 @@
+class Solution {
+    public int kadensMaxSum(int nums[],int n){
+        int sum=nums[0];
+        int maxSum=nums[0];
+        for(int i=1;i<n;i++){
+            sum=Math.max(sum+nums[i],nums[i]);
+            maxSum=Math.max(maxSum,sum);
+        }
+        return maxSum;
+    }
+    public int kadensMinSum(int nums[],int n){
+        int sum=nums[0];
+        int minSum=nums[0];
+        for(int i=1;i<n;i++){
+            sum=Math.min(sum+nums[i],nums[i]);
+            minSum=Math.min(minSum,sum);
+        }
+        return minSum;
+    }
+    public int maxSubarraySumCircular(int[] nums) {
+        int n=nums.length;
+        int s=0;
+        int max=Integer.MIN_VALUE;
+        int neg=0;
+        for(int i=0;i<n;i++){
+            s+=nums[i];
+            if(nums[i]<0){
+                neg++;
+            }
+            max=Math.max(nums[i],max);
+        }
+        //when all neg element
+        if(neg==n){
+            return max;
+        }
+
+        //ans in orgininal array
+        int s1=kadensMaxSum(nums,n);
+
+        //ans is in rotated
+        int s2=kadensMinSum(nums,n);
+
+        return Math.max(s-s2,s1);
+    }
+}
