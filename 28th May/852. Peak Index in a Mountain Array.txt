@@ -1,0 +1,34 @@
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        // T.C -  O(n)
+
+        // int ans=0;
+        // int n=arr.length;
+        // int max=Math.max(arr[0],arr[n-1]);
+
+        // for(int i=1;i<n-1;i++){
+        //     if(arr[i]>max){
+        //         ans=i;
+        //         max=arr[i];
+        //     }
+        // }
+        // return ans;
+
+        // TC O(log(n))
+        int n=arr.length;
+        int s=0;
+        int e=n-1;
+
+        while(s<e){
+            int mid=s+(e-s)/2;
+
+            if(arr[mid]<arr[mid+1]){
+                s=mid+1;
+            }else{
+                e=mid;
+            }
+        }
+        return s;
+    }
+}
+
